@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CasaSalud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="font-inter">
+    <!-- Header/Hero Section -->
+    <header class="hero-section relative min-h-screen flex items-center bg-cover bg-center bg-no-repeat" style="background-image: url('assets/images/header-bg.png')">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <div class="flex items-center">
+                        <img src="assets/images/logo.png" alt="Logo" class="w-96 h-96 rounded-full mr-6">
+                    </div>
+                </div>
+                
+                <!-- Tagline and Navigation -->
+                <div class="text-center lg:text-left max-w-2xl">
+                    <h1 class="text-5xl lg:text-6xl font-bold text-gray-800 mb-8 leading-tight">
+                        Un refugio para cuidarnos integralmente
+                    </h1>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button class="nav-button">Agenda tu sesión</button>
+                        <button class="nav-button">Equipo profesionales</button>
+                        <button class="nav-button">Recursos gratuitos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Multiprofessional Team Services Section -->
+    <section class="services-section py-20 bg-cover bg-center bg-no-repeat relative" style="background-image: url('assets/images/team-bg.jpeg')">
+        <!-- Logo in top right corner -->
+        <div class="absolute top-6 right-6 z-10">
+            <img src="assets/images/logo.png" alt="Logo" class="w-16 h-16 rounded-full">
+        </div>
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- First Column -->
+                <div class="space-y-6">
+                    <h2 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-8">
+                        Atenciones de equipo 
+                        <span class="highlight-text">multiprofesional</span>
+                    </h2>
+                    <div class="text-box bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Ofrecemos acompañamiento con conocimiento científico, humanista y social actualizado, con una mirada curiosa y responsable que integre la espiritualidad y los saberes ancestrales.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Second Column -->
+                <div class="space-y-6">
+                    <div class="text-box bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Creemos que el bienestar integral es un derecho humano. 
+                            Que lxs profesionales y terapeutas debemos validar a las personas, reconocer sus experiencias vitales y acompañarlas desde la confianza. Nos inspira reforzar el poder de autogestión del cuerpo y la salud, fortaleciendo lo que ya habita en cada persona.
+                        </p>
+                    </div>
+                    <div class="text-box bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Soñamos con caminar juntxs hacia el buen vivir, ese estado en el que
+                            el cuerpo y la psique pueden fluir con confianza y plenitud.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Members/Services Showcase Section -->
+    <section class="team-showcase py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/images/header-bg.png')">
+        <div class="container mx-auto px-6 text-center">
+            <div class="logo-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800">CasaSalud.cl</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="service-card">
+                    <div class="service-image h-64 rounded-lg mb-4 overflow-hidden">
+                        <img src="assets/images/teamcard1.png" alt="Equipo Profesionales Salud" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800">Equipo Profesionales Salud</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-image h-64 rounded-lg mb-4 overflow-hidden">
+                        <img src="assets/images/teamcard2.png" alt="Equipo Bienestar Social" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800">Equipo Bienestar Social</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-image h-64 rounded-lg mb-4 overflow-hidden">
+                        <img src="assets/images/teamcard3.png" alt="Equipo Terapias Integrativas" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800">Equipo Terapias Integrativas</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book a Session Section -->
+    <section class="booking-section py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/images/booking-bg.jpeg')">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center justify-center text-center">
+                <div class="max-w-2xl">
+                    <h2 class="text-4xl lg:text-5xl font-bold text-white mb-8">
+                        Agenda tu sesión
+                    </h2>
+                    <button class="booking-button mb-8">Reserva aquí</button>
+                    <div class="space-y-4 text-white">
+                        <div>
+                            <h3 class="font-semibold text-lg">Ubicación</h3>
+                            <p>Online via virtual box, desde casa</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">Horas</h3>
+                            <p>Flexible, según disponibilidad del profesional</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patient Testimonials Section -->
+    <section class="testimonials-section py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/images/header-bg.png')">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">
+                Lo que dicen nuestras pacientes
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar mb-4">
+                        <div class="w-16 h-16 mx-auto flex items-center justify-center">
+                            <img src="assets/images/testimonial1.svg" alt="Testimonial 1" class="w-full h-full object-contain">
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        "Me siento realmente satisfecha con la atención recibida. 
+                        El equipo es muy profesional y me han ayudado mucho en mi proceso de sanación."
+                    </p>
+                    <p class="font-semibold text-gray-800">Teresa Padilla</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar mb-4">
+                        <div class="w-16 h-16 mx-auto flex items-center justify-center">
+                            <img src="assets/images/testimonial2.svg" alt="Testimonial 2" class="w-full h-full object-contain">
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        "La mejor decisión que he tomado para mi bienestar. 
+                        La atención integral me ha cambiado la vida completamente."
+                    </p>
+                    <p class="font-semibold text-gray-800">Angie M.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar mb-4">
+                        <div class="w-16 h-16 mx-auto flex items-center justify-center">
+                            <img src="assets/images/testimonial3.svg" alt="Testimonial 3" class="w-full h-full object-contain">
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        "Siempre es una gran motivación saber que tengo este apoyo. 
+                        El equipo me acompaña en cada paso de mi proceso."
+                    </p>
+                    <p class="font-semibold text-gray-800">Flavia Zúñiga</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join the Team Section -->
+    <section class="join-team-section py-20 bg-cover bg-center bg-no-repeat" style="background-color: #80A27F; background-image: url('assets/images/contact-bg.png')">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <h2 class="text-4xl lg:text-5xl font-bold text-white mb-8">
+                        Contacta con nosotros para unirte al equipo.
+                    </h2>
+                </div>
+                <div class="flex-1 text-white">
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-semibold text-lg">Dirección</h3>
+                            <p>Pucón - Valdivia, Chile</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">Teléfono</h3>
+                            <p>+569 8784 0539</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">Correo</h3>
+                            <p>catalinasanjuanm@hotmail.com</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">Redes sociales</h3>
+                            <div class="flex gap-4 mt-2">
+                                <a href="https://instagram.com/casasalud.cl" target="_blank" class="flex w-8 h-8 bg-white rounded-full items-center justify-center hover:bg-green-100 transition-colors">
+                                    <i class="fa-brands fa-instagram text-green-600"></i>
+                                </a>
+                                <a href="https://facebook.com/casasalud.cl" target="_blank" class="flex w-8 h-8 bg-white rounded-full items-center justify-center hover:bg-green-100 transition-colors">
+                                    <i class="fa-brands fa-facebook text-green-600"></i>
+                                </a>
+                                <a href="https://twitter.com/casasalud.cl" target="_blank" class="flex w-8 h-8 bg-white rounded-full items-center justify-center hover:bg-green-100 transition-colors">
+                                    <i class="fa-brands fa-twitter text-green-600"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Catalina Section -->
+    <section class="about-catalina py-20 bg-cover bg-center bg-no-repeat relative" style="background-image: url('assets/images/header-bg.png')">
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/images/catalina-breastfeeding.png'); background-size: auto 75vh; background-position: left 2rem center; opacity: 0.8;"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex justify-center">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+                        ¡Hola! Soy Catalina San Juan Mondaca
+                    </h2>
+                    <div class="text-box bg-white p-8 rounded-lg shadow-lg">
+                        <p class="text-lg text-gray-700 mb-4 leading-relaxed">
+                            Médica general egresada de la Universidad de la Frontera y residente en Medicina Familiar Comunitaria en la Universidad Austral de Chile.
+                        </p>
+                        <p class="text-lg text-gray-700 mb-4 leading-relaxed">
+                            Llevo más de 8 años trabajando en atención primaria, medicina rural y urgencias. En todos esos contextos he cultivado una forma de atender que combina solidez clínica, sensibilidad y presencia. Escuchar, para mí, es estar disponible con todo lo que soy, con respeto y sin apuro.
+                        </p>
+                        <p class="text-lg text-gray-700 mb-4 leading-relaxed">
+                            Soy madre de Paz, feminista y sureña 🌱. Mi enfoque integra lo biológico, lo emocional, lo sociocultural y lo espiritual, entendiendo que la salud se vive en muchas capas. Acompaño procesos desde una medicina que puede ser concreta —como una receta o una pauta de manejo—, pero también una pausa, una pregunta, o una posibilidad de volver a habitarse.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            No realizo terapias complementarias online, pero sí puedo orientarte hacia caminos terapéuticos alternativos si eso es lo que estás buscando.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalina's Qualifications Section -->
+    <section class="qualifications-section py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/images/about-bg\ -\ copia.jpg')">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <div class="qualifications-box bg-white p-8 rounded-lg shadow-lg mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                            Formación que respalda mi práctica
+                        </h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li>• Diplomada en Salud Familiar (U. de Chile)</li>
+                            <li>• Diplomada en Geriatría y Gerontología Social (UFRO)</li>
+                            <li>• Certificada en Fitoterapia con mención en personas mayores (PUC)</li>
+                            <li>• Formación en Género y Feminismos (U. de Chile)</li>
+                            <li>• Iniciación en Reiki Nivel I</li>
+                        </ul>
+                    </div>
+                    <div class="qualifications-box bg-white p-8 rounded-lg shadow-lg">
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            Además de mi formación académica, llevo más de 15 años practicando
+                            yoga, meditación y otras terapias complementarias que han enriquecido
+                            mi mirada sobre la salud, integrando saberes naturales, simbólicos y
+                            ancestrales.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            Me interesa que cada persona pueda encontrar un espacio donde cuidarse
+                            de forma autónoma, con dignidad y en sintonía con su historia 💜
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            Puedes conocer más de mi mirada en @dra.sanjuan
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            Nos vemos cuando lo necesites.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Aquí hay medicina con raíz y con alma.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    
+                    <div class="service-offering bg-green-600 text-white p-6 rounded-lg text-center">
+                        <h4 class="text-xl font-bold mb-2">Consulta médica integral online</h4>
+                        <p class="text-lg">30 minutos - $5.000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Information Section -->
+    <section class="platform-section py-20 bg-no-repeat" style="background-image: url('assets/images/logo.png'); background-size: 384px 384px; background-position: 2rem center;">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="text-box bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Te invitamos a crear tu propio perfil para agendar y recomendarnos
+                        en red. Buscamos a todo tipo de profesional o terapeuta que pueda
+                        brindar servicios a distancia, consejería, evaluaciones o terapias.
+                    </p>
+                </div>
+                <div class="text-box bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Ofrecemos esta plataforma como una solución para agendar, recibir pagos y
+                        tramitar boletas, además del servicio de recordatorio, ficha única electrónica con espacios para acuerdos compartidos en el plan terapéutico y marketing digital de los servicios con publicidad en redes sociales y asesoría gráfica.
+                    </p>
+                </div>
+                <div class="text-box bg-green-100 p-6 rounded-lg">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Piloto de un mes para profesionales entrevistados por Directorio. Luego comisión 10% del costo de atención.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision and Mission Section -->
+    <section class="vision-mission py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="vision-card bg-white p-8 rounded-lg shadow-lg">
+                    <div class="logo-center mb-6">
+                        <h3 class="text-3xl font-bold text-gray-800">Visión</h3>
+                    </div>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Ser una plataforma de salud integral virtual reconocida por articular ciencia, comunidad y cuidado del planeta. Aspiramos a transformar la forma en que entendemos la salud, integrando la evidencia científica con un enfoque humanista y ecosocial, para promover bienestar sostenible en las personas y sus comunidades.
+                    </p>
+                    <div class="flex justify-center">
+                        <img src="assets/images/logo.png" alt="Logo" class="w-24 h-24 rounded-full">
+                    </div>
+                </div>
+                <div class="mission-card bg-white p-8 rounded-lg shadow-lg">
+                    <div class="logo-center mb-6">
+                        <h3 class="text-3xl font-bold text-gray-800">Misión</h3>
+                    </div>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Brindar atención médica y acompañamiento transdisciplinario online, centrado en la persona y su entorno. Nuestra misión es generar un espacio confiable, accesible y humano, donde la práctica clínica se combina con la educación, la prevención y los cuidados compartidos, favoreciendo decisiones informadas y vínculos de confianza entre el tratante y la persona.
+                    </p>
+                    <div class="flex justify-center">
+                        <img src="assets/images/logo.png" alt="Logo" class="w-24 h-24 rounded-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-black text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm">&copy; 2025 CasaSalud.cl </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
