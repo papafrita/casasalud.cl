@@ -1,3 +1,4 @@
+import { requireProvider } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import { Search, FileText, ChevronDown, Calendar, MessageCircle, MoreHorizontal, Mail, Download, Ticket } from 'lucide-react';
@@ -7,11 +8,11 @@ export default async function PatientsCRMPage({
 }: {
     searchParams: { q?: string };
 }) {
+    await requireProvider();
     const query = searchParams.q || '';
 
-    // Hardcoded for MVP Phase 2.
-    const providerProfile = await prisma.profile.findUnique({
-        where: { slug: 'dr-perez' }
+    const providerProfile = await prisma.profile.findFirst({
+        where: { user: { role: 'PROVIDER' } }
     });
 
     if (!providerProfile) return <div>Provider not found</div>;

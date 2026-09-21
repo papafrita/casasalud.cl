@@ -7,9 +7,9 @@ import { SortableAppointment } from './SortableAppointment';
 
 // Simple mock data for MVP
 const initialAppointments = [
-    { id: '1', title: 'Flavia Zúñiga', time: '09:00', type: 'CONFIRMED' },
-    { id: '2', title: 'Teresa Padilla', time: '10:30', type: 'PENDING_PAYMENT' },
-    { id: '3', title: 'Angie M.', time: '11:15', type: 'CONFIRMED' }
+    { id: '1', title: 'Flavia Zúñiga', time: '09:00', startTime: new Date(new Date().setHours(9, 0, 0, 0)).toISOString(), endTime: new Date(new Date().setHours(10, 0, 0, 0)).toISOString(), type: 'CONFIRMED' },
+    { id: '2', title: 'Teresa Padilla', time: '10:30', startTime: new Date(new Date().setHours(10, 30, 0, 0)).toISOString(), endTime: new Date(new Date().setHours(11, 15, 0, 0)).toISOString(), type: 'PENDING_PAYMENT' },
+    { id: '3', title: 'Angie M.', time: '11:15', startTime: new Date(new Date().setHours(11, 15, 0, 0)).toISOString(), endTime: new Date(new Date().setHours(12, 0, 0, 0)).toISOString(), type: 'CONFIRMED' }
 ];
 
 export default function CalendarBoard() {
@@ -29,7 +29,42 @@ export default function CalendarBoard() {
             setAppointments((items) => {
                 const oldIndex = items.findIndex(i => i.id === active.id);
                 const newIndex = items.findIndex(i => i.id === over.id);
-                return arrayMove(items, oldIndex, newIndex);
+
+                const draggedItem = items[oldIndex];
+                const targetItem = items[newIndex];
+
+                // Optmistic UI update
+                const newItems = arrayMove(items, oldIndex, newIndex);
+
+                if (draggedItem && targetItem) {
+                    // Swap times in the database to persist the reorder
+                    // Since it's a simple list, swapping start/end times simulates moving a slot
+
+                    const newDraggedStartTime = targetItem.startTime;
+                    const newDraggedEndTime = targetItem.endTime;
+                    const newDraggedTime = targetItem.time;
+                    const newTargetStartTime = draggedItem.startTime;
+                    const newTargetEndTime = draggedItem.endTime;
+                    const newTargetTime = draggedItem.time;
+
+                    // Update state locally so they reflect the new times immediately
+                    newItems[newIndex] = { ...draggedItem, startTime: newDraggedStartTime, endTime: newDraggedEndTime, time: newDraggedTime };
+                    newItems[oldIndex] = { ...targetItem, startTime: newTargetStartTime, endTime: newTargetEndTime, time: newTargetTime };
+
+                    fetch(`/api/appointments/${draggedItem.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ startTime: newDraggedStartTime, endTime: newDraggedEndTime })
+                    });
+
+                    fetch(`/api/appointments/${targetItem.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ startTime: newTargetStartTime, endTime: newTargetEndTime })
+                    });
+                }
+
+                return newItems;
             });
         }
     }

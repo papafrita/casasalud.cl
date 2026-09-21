@@ -1,8 +1,11 @@
+import { requireProvider } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { createDigitalProduct, deleteDigitalProduct } from '@/actions/vitrina';
 import { ChevronRight, Box, MonitorPlay, CreditCard, HelpCircle, FileText, ChevronDown } from 'lucide-react';
+import VitrinaConfigForm from './VitrinaConfigForm';
 
 export default async function StorePage() {
+    await requireProvider();
     // Mock user fetching
     const user = await prisma.user.findFirst({ where: { role: 'PROVIDER' } });
     if (!user) return <div>No provider found.</div>;
@@ -24,6 +27,8 @@ export default async function StorePage() {
                     </button>
                 </div>
             </div>
+
+            <VitrinaConfigForm />
 
             {/* Banner Section similar to screenshot */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-10">

@@ -1,7 +1,10 @@
+import { requireProvider } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { HelpCircle, ChevronDown } from 'lucide-react';
+import FinancesTabs from './FinancesTabs';
 
 export default async function FinancesPage() {
+    await requireProvider();
     return (
         <div className="space-y-6 max-w-6xl">
             <div className="flex justify-between items-center mb-6">
@@ -60,11 +63,6 @@ export default async function FinancesPage() {
                     </div>
                 </div>
 
-                <div className="flex w-96 mb-6">
-                    <button className="flex-1 py-2 font-medium bg-white shadow-sm text-gray-900 text-sm border border-gray-200 rounded-l-xl z-10 relative">Pagos</button>
-                    <button className="flex-1 py-2 font-medium text-gray-600 bg-gray-50/80 hover:bg-gray-100 text-sm border border-gray-200 border-l-0 rounded-r-xl">Atenciones</button>
-                </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                     <div className="bg-white p-6 rounded-2xl border border-gray-200 flex flex-col justify-between h-[220px]">
                         <div>
@@ -108,14 +106,7 @@ export default async function FinancesPage() {
                 </div>
             </div>
 
-            <div className="pt-8">
-                <h3 className="font-bold text-gray-900">Detalle de transacciones</h3>
-                {/* Space reserved for upcoming table... */}
-                <div className="flex gap-4 mt-6">
-                    <div className="w-48 h-10 bg-white border border-gray-200 rounded-xl cursor-not-allowed opacity-50"></div>
-                    <div className="w-48 h-10 bg-white border border-gray-200 rounded-xl cursor-not-allowed opacity-50"></div>
-                </div>
-            </div>
+            <FinancesTabs />
         </div>
     );
 }

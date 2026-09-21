@@ -1,6 +1,9 @@
+import { requireProvider } from '@/lib/auth';
 import { BarChart3, TrendingUp, Users, CalendarDays, ExternalLink, ArrowUpRight, CheckCircle2, DollarSign } from 'lucide-react';
+import ReportsList from './ReportsList';
 
-export default function ReportsPage() {
+export default async function ReportsPage() {
+    await requireProvider();
     return (
         <div className="space-y-6 max-w-7xl">
             <div className="flex justify-between items-center mb-8">
@@ -179,6 +182,9 @@ export default function ReportsPage() {
                     </div>
                 </div>
             </div >
+
+            {/* Reports List component handling API data */}
+            <ReportsList />
 
             {/* Premium CTA (Matching screenshot note) */}
             < div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6" >

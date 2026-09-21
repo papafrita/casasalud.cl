@@ -19,6 +19,9 @@ export default function Hero() {
               Un refugio para cuidarnos integralmente
             </h1>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-8">
+              <Link href="#booking-section">
+                <button className="nav-button bg-[#6366f1] text-white hover:bg-[#4f46e5]">Agendar ahora</button>
+              </Link>
               <Link href="/login">
                 <button className="nav-button">Iniciar Sesión</button>
               </Link>

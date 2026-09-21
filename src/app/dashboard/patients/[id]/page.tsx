@@ -23,8 +23,8 @@ export default async function PatientRecordPage({
     }
 
     // Hardcoded for MVP Phase 2
-    const providerProfile = await prisma.profile.findUnique({
-        where: { slug: 'dr-perez' }
+    const providerProfile = await prisma.profile.findFirst({
+        where: { user: { role: 'PROVIDER' } }
     });
 
     if (!providerProfile) return <div>Provider not found</div>;

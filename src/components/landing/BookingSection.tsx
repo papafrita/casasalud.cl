@@ -1,39 +1,38 @@
 import React from 'react';
-import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
+import HomeBookingWizard from './HomeBookingWizard';
+import { getSession } from '@/lib/auth';
 
 export default async function BookingSection() {
     const providers = await prisma.profile.findMany({
         select: { slug: true, fullName: true, specialty: true }
     });
+    const session = await getSession();
+    const isAuthenticated = !!session;
+
     return (
-        <section className="booking-section py-20 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/assets/images/booking-bg.jpeg')" }}>
-            <div className="container mx-auto px-16 lg:px-24 xl:px-32">
-                <div className="flex flex-col items-center justify-center text-center">
-                    <div className="max-w-2xl">
-                        <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-                            Agenda tu sesión
-                        </h2>
-                        {providers.length > 0 ? (
-                            <div className="flex flex-wrap gap-4 justify-center mb-10">
-                                {providers.map((p) => (
-                                    <Link key={p.slug} href={`/book/${p.slug}`}>
-                                        <button className="booking-button">{p.fullName} - {p.specialty}</button>
-                                    </Link>
-                                ))}
-                            </div>
-                        ) : (
-                            <button className="booking-button mb-6">Reserva aquí</button>
-                        )}
-                        <div className="text-box bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
-                            <div className="space-y-4 text-white">
+        <section id="booking-section" className="booking-section py-20 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/assets/images/booking-bg.jpeg')" }}>
+            <div className="container mx-auto px-4 lg:px-24 xl:px-32">
+                <div className="flex flex-col items-center justify-center">
+                    <div className="w-full">
+                        <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden p-6 md:p-8">
+                            <HomeBookingWizard 
+                                providers={providers} 
+                                isAuthenticated={isAuthenticated}
+                                initialUserEmail={session?.user?.email}
+                                initialUserName={session?.user?.name}
+                            />
+                        </div>
+
+                        <div className="mt-12 text-center text-white p-6 bg-black/30 backdrop-blur-sm rounded-xl max-w-2xl mx-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <h3 className="font-semibold text-lg">Ubicación</h3>
-                                    <p>Online via virtual box, desde casa</p>
+                                    <h3 className="font-semibold text-lg text-green-300">Ubicación</h3>
+                                    <p>Online y/o Presencial</p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-lg">Horas</h3>
-                                    <p>Flexible, según disponibilidad del profesional</p>
+                                    <h3 className="font-semibold text-lg text-green-300">Horarios</h3>
+                                    <p>Sujetos a disponibilidad del especialista</p>
                                 </div>
                             </div>
                         </div>

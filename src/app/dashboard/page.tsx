@@ -1,11 +1,12 @@
+import { requireProvider } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { startOfDay, endOfDay } from 'date-fns';
 import { CalendarCheck, DollarSign, Clock, Users } from 'lucide-react';
 
 export default async function DashboardPage() {
-    // Hardcoded for MVP Phase 2. In production, get from auth session.
-    const providerProfile = await prisma.profile.findUnique({
-        where: { slug: 'dr-perez' }
+    await requireProvider();
+    const providerProfile = await prisma.profile.findFirst({
+        where: { user: { role: 'PROVIDER' } }
     });
 
     if (!providerProfile) return <div>Provider not found</div>;

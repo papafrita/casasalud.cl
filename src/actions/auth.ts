@@ -32,7 +32,7 @@ export async function registerPatientAction(prevState: any, formData: FormData) 
 
     await setSession({ id: user.id, email: user.email, role: user.role });
 
-    redirect("/");
+    redirect("/?welcome=true#booking-section");
 }
 
 export async function loginAction(prevState: any, formData: FormData) {
@@ -55,7 +55,7 @@ export async function loginAction(prevState: any, formData: FormData) {
 
     await setSession({ id: user.id, email: user.email, role: user.role });
 
-    redirect("/");
+    redirect("/dashboard/calendar");
 }
 
 export async function logoutAction() {

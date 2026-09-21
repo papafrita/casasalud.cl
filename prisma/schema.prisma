@@ -38,6 +38,10 @@ model User {
   providerPrescriptions MedicalPrescription[] @relation("ProviderPrescriptions")
   payments              Payment[]
   patientPayments       Payment[]             @relation("PatientPayments")
+  
+  // New Relations for Patient tracking
+  patientFiles          PatientFile[]         @relation("PatientFiles")
+  patientFormularies    Formulary[]           @relation("PatientFormularies")
 }
 
 model Profile {
@@ -49,6 +53,10 @@ model Profile {
   specialty String
   sisId     String?
   bio       String?
+  
+  // New Fields for Configurations/Vitrina
+  searchSettings Json?   // Stores object like { "allowSEO": true, "tags": [...] }
+  analytics      Json?   // Stores object like { "googleAnalyticsId": "G-...", "pixel": "..." }
 }
 
 model AvailabilityRule {
@@ -93,16 +101,22 @@ model AuditLog {
 }
 
 model Service {
-  id             String        @id @default(uuid()) @db.Uuid
-  providerId     String        @db.Uuid
-  provider       User          @relation(fields: [providerId], references: [id], onDelete: Cascade)
-  name           String
-  durationMin    Int
-  price          Float
-  isPublic       Boolean       @default(true)
-  type           String // "ONLINE" | "IN_PERSON"
-  requiresBoleta Boolean
-  appointments   Appointment[]
+  id               String        @id @default(uuid()) @db.Uuid
+  providerId       String        @db.Uuid
+  provider         User          @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  name             String
+  durationMin      Int
+  price            Float
+  isPublic         Boolean       @default(true)
+  type             String // "ONLINE" | "IN_PERSON"
+  requiresBoleta   Boolean
+  appointments     Appointment[]
+  
+  // New Fields for Configurations/Comunicaciones
+  locationDetails  String?
+  billingDetails   String?
+  remindersEnabled Boolean       @default(true)
+  reminderChannels String[]      // e.g. ["WHATSAPP", "EMAIL"]
 }
 
 model MedicalPrescription {
@@ -153,6 +167,17 @@ model Connection {
   isActive   Boolean @default(false)
 }
 
+model BankDetails {
+  id            String  @id @default(uuid()) @db.Uuid
+  providerId    String  @unique @db.Uuid
+  bankName      String
+  accountType   String
+  accountNumber String
+  rut           String
+  fullName      String
+  email         String
+}
+
 model DigitalProduct {
   id          String  @id @default(uuid()) @db.Uuid
   providerId  String  @db.Uuid
@@ -160,4 +185,26 @@ model DigitalProduct {
   description String
   price       Float
   fileUrl     String?
+}
+
+model PatientFile {
+  id         String   @id @default(uuid()) @db.Uuid
+  patientId  String   @db.Uuid
+  patient    User     @relation("PatientFiles", fields: [patientId], references: [id], onDelete: Cascade)
+  providerId String   @db.Uuid
+  fileName   String
+  fileUrl    String
+  fileType   String
+  sizeBytes  Int
+  uploadedAt DateTime @default(now())
+}
+
+model Formulary {
+  id         String   @id @default(uuid()) @db.Uuid
+  patientId  String   @db.Uuid
+  patient    User     @relation("PatientFormularies", fields: [patientId], references: [id], onDelete: Cascade)
+  providerId String   @db.Uuid
+  title      String
+  content    Json
+  filledAt   DateTime @default(now())
 }

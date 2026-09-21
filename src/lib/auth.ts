@@ -1,5 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const secretKey = process.env.JWT_SECRET || "super-secret-key-for-dev";
 const key = new TextEncoder().encode(secretKey);
@@ -34,8 +35,26 @@ export async function getSession() {
     const session = cookies().get("session")?.value;
     if (!session) return null;
     try {
-        return await decrypt(session);
+        const payload = await decrypt(session);
+        return {
+            ...payload,
+            userId: payload.user?.id,
+            role: payload.user?.role,
+        };
     } catch (error) {
         return null;
     }
+}
+
+export async function requireProvider() {
+    const session = await getSession();
+    if (!session || !session.userId) {
+        redirect("/login");
+    }
+    
+    if (session.role !== 'PROVIDER' && session.role !== 'ADMIN') {
+        redirect("/dashboard/calendar");
+    }
+    
+    return session;
 }

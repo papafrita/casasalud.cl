@@ -1,11 +1,39 @@
 import Link from 'next/link';
 import { Calendar, LayoutDashboard, Users, UserRoundCog, Clock, DollarSign, Star, FileText, Store, LineChart, Plug } from 'lucide-react';
+import { getSession } from '@/lib/auth';
+import { redirect } from 'next/navigation';
+import { prisma } from '@/lib/prisma';
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const session = await getSession();
+    if (!session || !session.userId) {
+        redirect('/login');
+    }
+
+    const user = await prisma.user.findUnique({
+        where: { id: session.userId }
+    });
+
+    if (!user) {
+        redirect('/login');
+    }
+
+    const isProvider = user.role === 'PROVIDER' || user.role === 'ADMIN';
+
+    // Calculate Initials
+    const nameStr = user.name || user.email;
+    const parts = nameStr.split(' ').filter(Boolean);
+    let initials = 'U';
+    if (parts.length > 1 && parts[0] && parts[1]) {
+        initials = `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+    } else if (nameStr.length >= 2) {
+        initials = nameStr.substring(0, 2).toUpperCase();
+    }
+
     return (
         <div className="flex h-screen bg-[#f9fafb]">
             {/* Sidebar */}
@@ -16,46 +44,53 @@ export default function DashboardLayout({
                 </div>
 
                 <nav className="flex-1 px-4 space-y-1 mt-4 overflow-y-auto max-h-[calc(100vh-160px)] custom-scrollbar">
-                    <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
-                        <LayoutDashboard className="w-5 h-5" />
-                        <span className="font-medium">Resumen</span>
-                    </Link>
+                    {isProvider && (
+                        <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
+                            <LayoutDashboard className="w-5 h-5" />
+                            <span className="font-medium">Resumen</span>
+                        </Link>
+                    )}
                     <Link href="/dashboard/calendar" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
                         <Calendar className="w-5 h-5" />
                         <span className="font-medium">Calendario</span>
                     </Link>
-                    <Link href="/dashboard/services" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
-                        <Clock className="w-5 h-5" />
-                        <span className="font-medium">Horarios-Servicios</span>
-                    </Link>
-                    <Link href="/dashboard/patients" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
-                        <Users className="w-5 h-5" />
-                        <span className="font-medium">Pacientes</span>
-                    </Link>
-                    <Link href="/dashboard/finances" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
-                        <DollarSign className="w-5 h-5" />
-                        <span className="font-medium">Finanzas</span>
-                    </Link>
-                    <Link href="/dashboard/reviews" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
-                        <Star className="w-5 h-5" />
-                        <span className="font-medium">Evaluaciones</span>
-                    </Link>
-                    <Link href="/dashboard/prescriptions" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
-                        <FileText className="w-5 h-5" />
-                        <span className="font-medium">Recetas médicas</span>
-                    </Link>
-                    <Link href="/dashboard/store" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
-                        <Store className="w-5 h-5" />
-                        <span className="font-medium">Vitrina</span>
-                    </Link>
-                    <Link href="/dashboard/reports" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
-                        <LineChart className="w-5 h-5" />
-                        <span className="font-medium">Reportes <span className="ml-2 text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-full font-bold uppercase">Nuevo</span></span>
-                    </Link>
-                    <Link href="/dashboard/connections" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
-                        <Plug className="w-5 h-5" />
-                        <span className="font-medium">Conexiones</span>
-                    </Link>
+
+                    {isProvider && (
+                        <>
+                            <Link href="/dashboard/services" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
+                                <Clock className="w-5 h-5" />
+                                <span className="font-medium">Horarios-Servicios</span>
+                            </Link>
+                            <Link href="/dashboard/patients" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
+                                <Users className="w-5 h-5" />
+                                <span className="font-medium">Pacientes</span>
+                            </Link>
+                            <Link href="/dashboard/finances" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
+                                <DollarSign className="w-5 h-5" />
+                                <span className="font-medium">Finanzas</span>
+                            </Link>
+                            <Link href="/dashboard/reviews" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
+                                <Star className="w-5 h-5" />
+                                <span className="font-medium">Evaluaciones</span>
+                            </Link>
+                            <Link href="/dashboard/prescriptions" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
+                                <FileText className="w-5 h-5" />
+                                <span className="font-medium">Recetas médicas</span>
+                            </Link>
+                            <Link href="/dashboard/store" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
+                                <Store className="w-5 h-5" />
+                                <span className="font-medium">Vitrina</span>
+                            </Link>
+                            <Link href="/dashboard/reports" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
+                                <LineChart className="w-5 h-5" />
+                                <span className="font-medium">Reportes <span className="ml-2 text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-full font-bold uppercase">Nuevo</span></span>
+                            </Link>
+                            <Link href="/dashboard/connections" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-[#6366f1] transition-colors">
+                                <Plug className="w-5 h-5" />
+                                <span className="font-medium">Conexiones</span>
+                            </Link>
+                        </>
+                    )}
                 </nav>
 
                 <div className="p-4 border-t border-gray-100">
@@ -71,8 +106,8 @@ export default function DashboardLayout({
                 <header className="bg-white border-b border-gray-100 px-8 py-4 flex justify-between items-center sticky top-0 z-10">
                     <h1 className="text-xl font-semibold text-gray-800">Panel de Control</h1>
                     <div className="flex items-center gap-4">
-                        <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-[#6366f1] font-bold text-sm">
-                            JP
+                        <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-[#6366f1] font-bold text-sm" title={nameStr}>
+                            {initials}
                         </div>
                     </div>
                 </header>
